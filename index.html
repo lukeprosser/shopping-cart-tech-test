@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>WatchStop</title>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo">WatchStop</h1>
+    </div>
+  </header>
+
+  <div class="content-section">
+    <div class="container">
+      <h2 class="section-header">Popular Items</h2>
+      <div class="shop-items">
+        <div class="shop-item">
+          <span class="shop-item-title">Pegasus</span>
+          <img src="img/pegasus.jpg" alt="Pegasus" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£19.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Crux</span>
+          <img src="img/crux.jpg" alt="Crux" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£29.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Scorpius</span>
+          <img src="img/scorpius.jpg" alt="Scorpius" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£39.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Vega</span>
+          <img src="img/vega.jpg" alt="Vega" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£49.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Corvus</span>
+          <img src="img/corvus.jpg" alt="Corvus" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£59.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Lyra</span>
+          <img src="img/lyra.jpg" alt="Lyra" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£69.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Grus</span>
+          <img src="img/grus.jpg" alt="Grus" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£79.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Leo</span>
+          <img src="img/leo.jpg" alt="Leo" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£89.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+        <div class="shop-item">
+          <span class="shop-item-title">Orion</span>
+          <img src="img/orion.jpg" alt="Orion" class="shop-item-image" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">£99.99</span>
+            <button class="btn btn-shop-item" type="button">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <div class="container">
+      <hr />
+      <h2 id="cart" class="section-header">Cart</h2>
+      <div class="cart-row">
+        <span class="cart-item cart-header cart-column">Item</span>
+        <span class="cart-price cart-header cart-column">Price</span>
+        <span class="cart-quantity cart-header cart-column">Quantity</span>
+      </div>
+      <div class="cart-items">
+        <p class="cart-empty">Cart is empty.</p>
+      </div>
+      <div class="cart-total">
+        <span class="cart-total-title">Total</span>
+        <span class="cart-total-price">£0.00</span>
+      </div>
+      <div class="cart-options">
+        <div class="discount-code">
+          <input class="input-discount-code" type="text" placeholder="Discount Code" />
+          <button class="btn btn-discount" type="button">Submit</button>
+        </div>
+        <div class="cart-controls">
+          <button class="btn btn-clear-cart" type="button">Clear Cart</button>
+          <button class="btn btn-purchase" type="button">Purchase</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="license">WatchStop © <span class="date">2020</span></p>
+    </div>
+  </footer>
+
+  <div class="modal">
+    <button class="btn-modal-close">&times;</button>
+    <p class="modal-message"></p>
+  </div>
+  <div class="overlay"></div>
+
+  <script src="main.js"></script>
+</body>
+</html>
