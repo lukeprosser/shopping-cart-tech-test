@@ -184,16 +184,24 @@ header .container {
   background-color: var(--ternary);
   color: var(--white);
   font-size: 1.2rem;
+  cursor: pointer;
 }
 .btn-remove:hover {
   background-color: #EB5757;
+}
+
+.cart-total-discount {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 
 .cart-total {
   margin-top: 1rem;
   margin-right: 1rem;
   text-align: end;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 .cart-total-title {
@@ -231,6 +239,7 @@ header .container {
   border: 1px solid var(--primary);
 }
 .input-discount-code::placeholder {
+  color: var(--primary);
   font-size: 0.9rem;
   letter-spacing: 1px;
 }
