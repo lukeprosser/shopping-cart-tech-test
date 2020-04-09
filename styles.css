@@ -302,6 +302,14 @@ footer .license {
   pointer-events: all;
 }
 
+.btn-print {
+  display: none;
+  margin: 3rem auto 2rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
 
 /* Mobile */
 @media screen and (max-width: 700px) {

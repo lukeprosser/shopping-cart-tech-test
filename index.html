@@ -96,20 +96,21 @@
 
   <section class="content-section">
     <div class="container">
-      <hr />
-      <h2 id="cart" class="section-header">Cart</h2>
-      <div class="cart-row">
-        <span class="cart-item cart-header cart-column">Item</span>
-        <span class="cart-price cart-header cart-column">Price</span>
-        <span class="cart-quantity cart-header cart-column">Quantity</span>
-      </div>
-      <div class="cart-items">
-        <p class="cart-empty">Cart is empty.</p>
-      </div>
-      <div class="cart-total">
-        <span class="cart-total-discount"></span>
-        <span class="cart-total-title">Total</span>
-        <span class="cart-total-price">£0.00</span>
+      <div class="cart-container">
+        <h2 id="cart" class="section-header">Cart</h2>
+        <div class="cart-row">
+          <span class="cart-item cart-header cart-column">Item</span>
+          <span class="cart-price cart-header cart-column">Price</span>
+          <span class="cart-quantity cart-header cart-column">Quantity</span>
+        </div>
+        <div class="cart-items">
+          <p class="cart-empty">Cart is empty.</p>
+        </div>
+        <div class="cart-total">
+          <span class="cart-total-discount"></span>
+          <span class="cart-total-title">Total</span>
+          <span class="cart-total-price">£0.00</span>
+        </div>
       </div>
       <div class="cart-options">
         <div class="discount-code">
@@ -133,6 +134,7 @@
   <div class="modal">
     <button class="btn-modal-close">&times;</button>
     <p class="modal-message"></p>
+    <button class="btn btn-print" type="button" onclick="printReceipt('.cart-container')">Print Receipt</button>
   </div>
   <div class="overlay"></div>
 

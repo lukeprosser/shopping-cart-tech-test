@@ -1,7 +1,14 @@
 function triggerModal(message) {
   const overlay = document.querySelector('.overlay'),
         modal = document.querySelector('.modal'),
-        modalMsg = document.querySelector('.modal-message');
+        modalMsg = document.querySelector('.modal-message'),
+        printBtn = document.querySelector('.btn-print');
+
+  if (localStorage.getItem('purchase') === 'true') {
+    printBtn.style.display = 'block';
+  } else {
+    printBtn.style.display = 'none';
+  }
 
   modalMsg.innerText = message;
   modal.classList.add('active');
@@ -14,6 +21,11 @@ function closeModal() {
 
   modal.classList.remove('active');
   overlay.classList.remove('active');
+
+  if (localStorage.getItem('purchase') === 'true') {
+    localStorage.setItem('purchase', false);
+    clearCart();
+  }
 };
 
 function checkCartEmpty() {
@@ -97,21 +109,25 @@ function addItemToCart(title, price, imageSrc) {
 function updateCartTotal() {
   const cartItemContainer = document.querySelector('.cart-items'),
         cartRows = cartItemContainer.querySelectorAll('.cart-row'),
-        cartTotalEl = document.querySelector('.cart-total-price'),
-        discount = parseFloat(localStorage.getItem('discountAmount'));
+        cartTotalEl = document.querySelector('.cart-total-price');
   let total = 0;
 
+  // Add all item totals
   cartRows.forEach(row => {
     const priceEl = row.querySelector('.cart-price'),
           quantityEl = row.querySelector('.cart-quantity-input');
     
-    const price = parseFloat(priceEl.innerText.replace('£', '')), // Convert price string to number
+    const price = parseFloat(priceEl.innerText.replace('£', '')), // Convert price string to integer
           quantity = quantityEl.value;
 
     total = total + (price * quantity);
-    total = total - ((total / 100) * discount);
   });
 
+  // Check for discount
+  if (localStorage.getItem('discountAmount')) {
+    const discountAmount = parseFloat(localStorage.getItem('discountAmount'));
+    total = total - ((total / 100) * discountAmount);
+  }
   cartTotalEl.innerText = '£' + total.toFixed(2);
 }
 
@@ -133,26 +149,41 @@ function addToCartClicked(e) {
   }
 };
 
+function displayDiscountCode() {
+  if (localStorage.getItem('discountAmount')) {
+    const discountAmount = parseFloat(localStorage.getItem('discountAmount')),
+          discountInfo = document.querySelector('.cart-total-discount');
+  
+    discountInfo.innerText = `-${discountAmount}% discount`;
+  } else {
+    return;
+  }
+};
+
+function applyDiscountCode(amount) {
+  localStorage.setItem('discountAmount', amount);
+  displayDiscountCode();
+  triggerModal(`${amount}% discount applied!`);
+};
+
 function checkDiscountCode() {
+  const discountCodeInput = document.querySelector('.input-discount-code');
   let discountCodes = JSON.parse(localStorage.getItem('discountCodes')),
       usedDiscountCodes = JSON.parse(localStorage.getItem('usedDiscountCodes')),
-      discountCodeInput = document.querySelector('.input-discount-code'),
-      discountCode = discountCodeInput.value.toLowerCase(),
-      discountInfo = document.querySelector('.cart-total-discount');
-
+      discountCode = discountCodeInput.value.toLowerCase();
+      
   if (discountCode !== '') {
     const usedDiscountMatch = usedDiscountCodes.map(discount => discount['code']).indexOf(discountCode),
           newDiscountMatch = discountCodes.map(discount => discount['code']).indexOf(discountCode);
 
     for (let i = 0; i < discountCodes.length; i++) {
       if (usedDiscountMatch > -1) {
-        triggerModal('Sorry, that discount code has already been applied.');
+        triggerModal('Sorry, that discount code has already been used.');
         break;
       } else if (newDiscountMatch > -1) {
-        // Set discount code
         const amount = discountCodes[newDiscountMatch].amount;
-        localStorage.setItem('discountAmount', amount);
-        discountInfo.innerText = `Discount: ${amount}%`;
+        // Apply valid discount code
+        applyDiscountCode(amount);
         // Update discount code records
         usedDiscountCodes.push({ code: discountCode, amount: amount });
         discountCodes.splice(newDiscountMatch, 1);
@@ -160,7 +191,6 @@ function checkDiscountCode() {
         localStorage.setItem('discountCodes', JSON.stringify(discountCodes));
 
         updateCartTotal();
-        triggerModal(`${amount}% discount applied!`);
         break;
       } else {
         triggerModal("Sorry, that discount code isn't valid.");
@@ -168,7 +198,7 @@ function checkDiscountCode() {
       }
     }
   } else {
-    triggerModal("Sorry, that discount code isn't valid.");
+    triggerModal("Please enter a valid discount code.");
   }
 
   // Reset discount code input
@@ -180,8 +210,15 @@ function clearCart() {
         cartRows = document.querySelectorAll('.cart-row');
 
   if (cartRows.length > 1) { // Ignore cart header row
-    for (let i = 0; i < cartRows.length; i++) {
-      cartItemsContainer.removeChild(cartItemsContainer.lastChild);
+    if (localStorage.getItem('purchase')) {
+      // Prevent hidden cart empty message being removed
+      for (let i = 1; i < cartRows.length; i++) {
+        cartItemsContainer.removeChild(cartItemsContainer.lastChild);
+      }
+    } else {
+      for (let i = 0; i < cartRows.length; i++) {
+        cartItemsContainer.removeChild(cartItemsContainer.lastChild);
+      }
     }
   } else {
     triggerModal('Cart is already empty.');
@@ -191,19 +228,27 @@ function clearCart() {
   checkCartEmpty();
 };
 
+function printReceipt(content) {
+  const restorePage = document.body.innerHTML,
+        printContent = document.querySelector(content).innerHTML;
+
+  // Print cart only
+  document.body.innerHTML = printContent;
+  window.print();
+  // Reset document
+  document.body.innerHTML = restorePage;
+  setEventListeners();
+}
+
 // Empty cart on purchase / Alert empty cart
 function purchaseClicked() {
-  const cartItemsContainer = document.querySelector('.cart-items'),
-        cartRows = document.querySelectorAll('.cart-row');
+  const cartRows = document.querySelectorAll('.cart-row'),
+        discountInfo = document.querySelector('.cart-total-discount');
 
   if (cartRows.length > 1) {
+    localStorage.setItem('purchase', true);
     triggerModal('Thank you for your purchase!');
-
-    for (let i = 0; i < cartRows.length; i++) {
-      cartItemsContainer.removeChild(cartItemsContainer.lastChild);
-    }
-
-    updateCartTotal();
+    discountInfo.innerText = '';
   } else {
     triggerModal('Please add an item to the cart...');
   }
