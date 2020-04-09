@@ -2,11 +2,11 @@
 
 Shopping cart demo built with HTML, CSS and vanilla JavaScript.
 
-Live demo: TBC
+Live demo: https://lukeprosser.github.io/shopping-cart-tech-test/
 
 ## Brief
 
-The project is designed to meet the following criteria:
+This project is designed to meet the following criteria:
 
 * Add items
 * Remove items
@@ -23,4 +23,22 @@ The project is designed to meet the following criteria:
 * Print receipt button displayed within modal upon purchase.
 * Discount codes tracked using localStorage.
 * Purchase state tracked using localStorage.
+* Prevent duplicate items being added to cart.
 * Dynamic empty cart message.
+
+### Discount codes
+
+The following discount codes can be used:
+
+* CODE10
+* CODE20
+* CODE30
+* CODE40
+* CODE50
+* CODE60
+* CODE70
+* CODE80
+
+Each discount code corresponds to a discount percentage, which will be automatically removed from the cart total.
+
+Discount codes can be reset by clearing localStorage.
