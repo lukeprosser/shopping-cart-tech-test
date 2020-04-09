@@ -15,7 +15,7 @@ This project is designed to meet the following criteria:
 * Print itemised receipt
 * Apply discount codes (each discount code can only be applied once)
 
-### Features
+## Features
 
 * Clear all or individual cart items.
 * Quantity update.
@@ -26,7 +26,7 @@ This project is designed to meet the following criteria:
 * Prevent duplicate items being added to cart.
 * Dynamic empty cart message.
 
-### Discount codes
+## Discount codes
 
 The following discount codes can be used:
 
